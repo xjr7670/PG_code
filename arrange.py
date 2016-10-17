@@ -1,0 +1,19 @@
+d = {'F05': {'U1 Rel. order': 0, 'SB Depend.req': 0, 'VJ Delivery': 3, 'BR Proc.order': 0, 'LE Del.sched.': 4, 'QM QM InspLot': 0, 'U3 PldOrdRel.': 0, 'LB StLoc.stck': 0, 'PA Plnd order': 0, 'U4 SAgmt rel.': 0, 'AR Order.res.': 3, 'U2 PchReq.Rel': 0, 'LA Ship.note': 0, 'BA PurRequist': 0, 'BE Purch.ord.': 0}, 'F08': {'U1 Rel. order': 0, 'SB Depend.req': 0, 'VJ Delivery': 0, 'BR Proc.order': 0, 'LE Del.sched.': 0, 'QM QM InspLot': 1, 'U3 PldOrdRel.': 0, 'LB StLoc.stck': 0, 'PA Plnd order': 0, 'U4 SAgmt rel.': 0, 'AR Order.res.': 0, 'U2 PchReq.Rel': 0, 'LA Ship.note': 0, 'BA PurRequist': 0, 'BE Purch.ord.': 3}, 'F07': {'U1 Rel. order': 0, 'SB Depend.req': 0, 'VJ Delivery': 0, 'BR Proc.order': 0, 'LE Del.sched.': 0, 'QM QM InspLot': 0, 'U3 PldOrdRel.': 0, 'LB StLoc.stck': 0, 'PA Plnd order': 0, 'U4 SAgmt rel.': 0, 'AR Order.res.': 0, 'U2 PchReq.Rel': 0, 'LA Ship.note': 0, 'BA PurRequist': 0, 'BE Purch.ord.': 0}, 'F09': {'U1 Rel. order': 0, 'SB Depend.req': 0, 'VJ Delivery': 0, 'BR Proc.order': 0, 'LE Del.sched.': 0, 'QM QM InspLot': 0, 'U3 PldOrdRel.': 0, 'LB StLoc.stck': 0, 'PA Plnd order': 0, 'U4 SAgmt rel.': 0, 'AR Order.res.': 0, 'U2 PchReq.Rel': 0, 'LA Ship.note': 0, 'BA PurRequist': 0, 'BE Purch.ord.': 1}, 'F06': {'U1 Rel. order': 8, 'SB Depend.req': 0, 'VJ Delivery': 6, 'BR Proc.order': 1, 'LE Del.sched.': 4, 'QM QM InspLot': 0, 'U3 PldOrdRel.': 2, 'LB StLoc.stck': 0, 'PA Plnd order': 3, 'U4 SAgmt rel.': 30, 'AR Order.res.': 4, 'U2 PchReq.Rel': 1, 'LA Ship.note': 1, 'BA PurRequist': 1, 'BE Purch.ord.': 25}, 'F03': {'U1 Rel. order': 0, 'SB Depend.req': 0, 'VJ Delivery': 5, 'BR Proc.order': 3, 'LE Del.sched.': 6, 'QM QM InspLot': 2, 'U3 PldOrdRel.': 2, 'LB StLoc.stck': 0, 'PA Plnd order': 2, 'U4 SAgmt rel.': 3, 'AR Order.res.': 13, 'U2 PchReq.Rel': 1, 'LA Ship.note': 0, 'BA PurRequist': 6, 'BE Purch.ord.': 4}, 'F01': {'U1 Rel. order': 3, 'SB Depend.req': 0, 'VJ Delivery': 5, 'BR Proc.order': 0, 'LE Del.sched.': 0, 'QM QM InspLot': 0, 'U3 PldOrdRel.': 0, 'LB StLoc.stck': 0, 'PA Plnd order': 0, 'U4 SAgmt rel.': 0, 'AR Order.res.': 1, 'U2 PchReq.Rel': 0, 'LA Ship.note': 0, 'BA PurRequist': 0, 'BE Purch.ord.': 1}, 'F00': {'U1 Rel. order': 0, 'SB Depend.req': 0, 'VJ Delivery': 0, 'BR Proc.order': 0, 'LE Del.sched.': 0, 'QM QM InspLot': 0, 'U3 PldOrdRel.': 0, 'LB StLoc.stck': 0, 'PA Plnd order': 0, 'U4 SAgmt rel.': 0, 'AR Order.res.': 0, 'U2 PchReq.Rel': 0, 'LA Ship.note': 0, 'BA PurRequist': 0, 'BE Purch.ord.': 0}, 'F10': {'U1 Rel. order': 0, 'SB Depend.req': 0, 'VJ Delivery': 0, 'BR Proc.order': 0, 'LE Del.sched.': 0, 'QM QM InspLot': 0, 'U3 PldOrdRel.': 0, 'LB StLoc.stck': 0, 'PA Plnd order': 0, 'U4 SAgmt rel.': 0, 'AR Order.res.': 0, 'U2 PchReq.Rel': 0, 'LA Ship.note': 0, 'BA PurRequist': 0, 'BE Purch.ord.': 0}, 'F04': {'U1 Rel. order': 4, 'SB Depend.req': 0, 'VJ Delivery': 4, 'BR Proc.order': 0, 'LE Del.sched.': 34, 'QM QM InspLot': 6, 'U3 PldOrdRel.': 0, 'LB StLoc.stck': 0, 'PA Plnd order': 1, 'U4 SAgmt rel.': 11, 'AR Order.res.': 3, 'U2 PchReq.Rel': 0, 'LA Ship.note': 3, 'BA PurRequist': 26, 'BE Purch.ord.': 40}, 'F02': {'U1 Rel. order': 1, 'SB Depend.req': 0, 'VJ Delivery': 2, 'BR Proc.order': 0, 'LE Del.sched.': 0, 'QM QM InspLot': 0, 'U3 PldOrdRel.': 0, 'LB StLoc.stck': 0, 'PA Plnd order': 0, 'U4 SAgmt rel.': 1, 'AR Order.res.': 1, 'U2 PchReq.Rel': 0, 'LA Ship.note': 0, 'BA PurRequist': 2, 'BE Purch.ord.': 0}}
+
+l1 = list(d.keys())
+l1.sort()
+
+l2 = list(d['F01'].keys())
+l2.sort()
+
+s = ''
+for j in l1:
+    if j != l1[-1]:
+        s += '"\\t" + ' + 'str(d["' + j + '"][i]) + '
+    else:
+        s += '"\\t" + ' + 'str(d["' + j + '"][i])'
+#print(s)
+
+for i in l2:
+    print(i + "\t" + str(d["F00"][i]) + "\t" + str(d["F01"][i]) + "\t" + str(d["F02"][i]) + "\t" + str(d["F03"][i]) + "\t" + str(d["F04"][i]) + "\t" + str(d["F05"][i]) + "\t" + str(d["F06"][i]) + "\t" + str(d["F07"][i]) + "\t" + str(d["F08"][i]) + "\t" + str(d["F09"][i]) + "\t" + str(d["F10"][i])
+)
