@@ -140,7 +140,7 @@ class Work_dir(object):
         '''
 
         if os.path.exists(self.work_dir):
-            new_dir = raw_input("Use last folder(just press Enter) or a new one(enter that):\t")
+            new_dir = raw_input("Use last folder %s (just press Enter) or a new one(enter that):\t" % self.work_dir)
             if new_dir != '':
                 new_dir = self.confirm_dir(new_dir)
                 return new_dir
@@ -173,7 +173,7 @@ if __name__ == "__main__":
 
     # 打开配置文件，获取配置信息并转成dict
     # 配置信息包含路径、mrp_controller列表、mrp_element列表
-    config_file = open('config.json')
+    config_file = open('config.cfg')
     config_str = config_file.read()
     config_str = re.sub(r'[\n\t]', '', config_str)
     config = eval(config_str)
@@ -190,8 +190,8 @@ if __name__ == "__main__":
     wd_obj = Work_dir(work_dir)
     new_dir = wd_obj.set_work_dir()
     if work_dir != new_dir:
-        with open('config.json', 'w') as config_file:
-            config['work_dir'] = new_dir
+        config['work_dir'] = new_dir
+        with open('config.cfg', 'w') as config_file:
             config_file.write(str(config))
             work_dir = new_dir
     os.chdir(work_dir)
@@ -199,11 +199,11 @@ if __name__ == "__main__":
     # 获取工作目录下的所有htm文件名并放到列表中
     files = [x for x in os.listdir(work_dir) if x.endswith('.htm')]
 
-    result_files = open('count_results.txt', 'w')
+    result_file = open('count_results.txt', 'w')
 
     for eachFile in files:
 
-        result_files.write("Result of %s\n" % eachFile)
+        result_file.write("Result of %s\n" % eachFile)
         # ***************************************************************************************************************************
         # this code is use to counting past due information
         # the file need to count
@@ -212,9 +212,8 @@ if __name__ == "__main__":
         total = pase_due.get_total()
 
         # f.write('File of ' + eachFile + '\n')
-        result_files.write('The total of Past due is: ' + str(total) + '\n')
-        result_files.write(
-            '=============================================================================================\n')
+        result_file.write('The total of Past due is: ' + str(total) + '\n')
+        result_file.write('=============================================================================================\n')
 
         d = {}
 
@@ -227,18 +226,23 @@ if __name__ == "__main__":
             d[each_mrp_c] = d2
 
         # print table head
-        result_files.write('\t\t' + "F01" + '\t' + "F02" + '\t' + "F03" + '\t' + "F04" + \
-                           '\t' + "F05" + '\t' + "F06" + '\t' + "F08" + '\t' + "F09" + '\t\n')
+        mrp_controller_length = len(mrp_c_list)
+        past_due_table_head = '\t\t'
+        for n1 in range(mrp_controller_length):
+            past_due_table_head += mrp_c_list[n1] + '\t'
+        past_due_table_head += '\n'
+        result_file.write(past_due_table_head)
 
         # formating output
-        for i in mrp_element_list:
-            result_files.write(i + "\t" + str(d["F01"][i]) + "\t" + str(d["F02"][i]) + "\t" \
-                               + str(d["F03"][i]) + "\t" + str(d["F04"][i]) + "\t" + str(d["F05"][i]) + "\t" + str(
-                d["F06"][i]) + "\t" \
-                               + str(d["F08"][i]) + "\t" + str(d["F09"][i]) + '\n')
+        for each_element in mrp_element_list:
+            res = each_element
+            for n2 in range(mrp_controller_length):
+                res += "\t" + str(d[mrp_c_list[n2]][each_element])
+            res += '\n'
+            result_file.write(res)
 
-        result_files.write('\n')
-        result_files.flush()
+        result_file.write('\n')
+        result_file.flush()
 
         # ************************************************************************************************************************
         # line 247-271 is use to counting exception errors information
@@ -247,28 +251,29 @@ if __name__ == "__main__":
         exception_errors = Get_exception_errors_total(eachFile)
 
         total = exception_errors.get_total()
-        result_files.write("The total of Exception errors is: %s \n" % total)
-        result_files.write("===========================================\n")
+        result_file.write("The total of Exception errors is: %s \n" % total)
+        result_file.write("===========================================\n")
 
         exception_error_result_dict = exception_errors.get_detail(mrp_c_list)
 
         # print table head
-        result_files.write(
-            "F01" + '\t' + "F02" + '\t' + "F03" + '\t' + "F04" + '\t' + "F05" + '\t' + "F06" + '\t' + "F08" + '\t' + "F09" + '\n')
+        exception_errors_table_head = ''
+        for n3 in range(mrp_controller_length):
+            exception_errors_table_head += mrp_c_list[n3] + '\t'
+        exception_errors_table_head += '\n'
+        result_file.write(exception_errors_table_head)
 
         # formating output
-        result_files.write(
-            str(exception_error_result_dict['F01']) + '\t' + str(exception_error_result_dict['F02']) + '\t' + str(
-                exception_error_result_dict['F03']) + \
-            '\t' + str(exception_error_result_dict['F04']) + '\t' + str(
-                exception_error_result_dict['F05']) + '\t' + str(
-                exception_error_result_dict['F06']) + '\t' + str(exception_error_result_dict['F08']) + \
-            '\t' + str(exception_error_result_dict['F09']) + '\n')
+        exception_errors_string = ''
+        for n4 in range(mrp_controller_length):
+            exception_errors_string += str(exception_error_result_dict[mrp_c_list[n4]]) + '\t'
+        exception_errors_string += '\n'
+        result_file.write(exception_errors_string)
 
-        result_files.flush()
-        result_files.write('\n\n\n\n')
+        result_file.flush()
+        result_file.write('\n\n\n\n')
 
-    result_files.close()
+    result_file.close()
 
     print '\nFinish!'
     print 'You can open the %s to see the result.' % os.path.abspath('count_results.txt')
