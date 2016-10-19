@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+#-*- coding:utf-8 -*-
 
 #  本程序可以将指定目录下的所有htm文件进行统计
 #  统计结果包含past due和exception errors
@@ -11,13 +11,12 @@ import re
 from time import sleep
 from bs4 import BeautifulSoup as bs
 
-
 class Get_past_due_total(object):
     '''
     统计past due，每次接收一个文件进行处理
     截取从开头至Exception Error处的内容进行统计
     '''
-
+    
     def __init__(self, error_file):
         self.f = open(error_file)
         self.html = self.f.read()
@@ -25,6 +24,7 @@ class Get_past_due_total(object):
         self.html = self.html[:self.pase_due_end]
         self.html = self.html.replace("&nbsp;", " ")
 
+        
     def get_total(self):
         '''
         利用统计错误数量的方式统计总数
@@ -36,7 +36,7 @@ class Get_past_due_total(object):
         s = pat_num.findall(self.html)
         total = len(s)
         return total
-
+    
     def get_detail(self, mrp_c, mrp_e):
         '''
         函数接收一个mrp_c和一个mrp_e，每次在一个文件中，
@@ -51,7 +51,7 @@ class Get_past_due_total(object):
         if f01 == -1:
             return total
 
-        f02 = self.html.find("F0", f01 + 1)
+        f02 = self.html.find("F0", f01+1)
 
         content = self.html[f01:f02]
 
@@ -59,10 +59,10 @@ class Get_past_due_total(object):
 
         while f01 != -1:
             f01 = self.html.find(MPR_c, f02)
-            f02 = self.html.find("F0", f01 + 1)
+            f02 = self.html.find("F0", f01+1)
             content = self.html[f01:f02]
             total += content.count(MRP_e)
-
+            
         return total
 
 
@@ -71,7 +71,7 @@ class Get_exception_errors_total(object):
     统计past due，每次接收一个文件进行处理
     截取从Exception Error至结尾的内容进行统计
     '''
-
+    
     def __init__(self, error_file):
         self.f = open(error_file)
         self.html = self.f.read()
@@ -79,7 +79,7 @@ class Get_exception_errors_total(object):
 
         self.html = self.html[self.exception_errors_start:]
         self.html = self.html.replace("&nbsp;", " ")
-
+        
     def get_total(self):
         '''
         利用统计metirial数量的方式统计总数
@@ -106,7 +106,7 @@ class Get_exception_errors_total(object):
             result_dict[each_mrp_c] = 0
 
         bsObj = bs(self.html, 'html.parser')
-        nobr_tags = bsObj.findAll('nobr', {'style': 'background:#f0f008'})
+        nobr_tags =  bsObj.findAll('nobr', {'style': 'background:#f0f008'})
         for nobr in nobr_tags:
             text = nobr.get_text()
             res = text.split()
@@ -163,12 +163,12 @@ class Work_dir(object):
         else:
             while not os.path.exists(work_dir):
                 work_dir = raw_input("Please enter the correct folder path, start with the C/D/E etc., "
-                                     "Case insensitive: ")
+                         "Case insensitive: ")
                 work_dir.strip()
             else:
                 return work_dir
 
-
+    
 if __name__ == "__main__":
 
     # 打开配置文件，获取配置信息并转成dict
@@ -177,7 +177,7 @@ if __name__ == "__main__":
     config_str = config_file.read()
     config_str = re.sub(r'[\n\t]', '', config_str)
     config = eval(config_str)
-
+     
     # 获取工作目录路径
     work_dir = config["work_dir"]
     # 获取mrp_controller列表
@@ -208,16 +208,15 @@ if __name__ == "__main__":
         # this code is use to counting past due information
         # the file need to count
         pase_due = Get_past_due_total(eachFile)
-
+        
         total = pase_due.get_total()
-
+      
         # f.write('File of ' + eachFile + '\n')
         result_files.write('The total of Past due is: ' + str(total) + '\n')
-        result_files.write(
-            '=============================================================================================\n')
-
+        result_files.write('=============================================================================================\n')
+        
         d = {}
-
+        
         # get all result number and put it to a dict variables
         for each_mrp_c in mrp_c_list:
             d2 = {}
@@ -225,17 +224,16 @@ if __name__ == "__main__":
                 each_total = pase_due.get_detail(each_mrp_c, each_mrp_e)
                 d2[each_mrp_e] = each_total
             d[each_mrp_c] = d2
-
+        
         # print table head
         result_files.write('\t\t' + "F01" + '\t' + "F02" + '\t' + "F03" + '\t' + "F04" + \
-                           '\t' + "F05" + '\t' + "F06" + '\t' + "F08" + '\t' + "F09" + '\t\n')
-
+                '\t' + "F05" + '\t' + "F06" + '\t' + "F08" + '\t' + "F09" + '\t\n')
+        
         # formating output
         for i in mrp_element_list:
             result_files.write(i + "\t" + str(d["F01"][i]) + "\t" + str(d["F02"][i]) + "\t" \
-                               + str(d["F03"][i]) + "\t" + str(d["F04"][i]) + "\t" + str(d["F05"][i]) + "\t" + str(
-                d["F06"][i]) + "\t" \
-                               + str(d["F08"][i]) + "\t" + str(d["F09"][i]) + '\n')
+                      + str(d["F03"][i]) + "\t" + str(d["F04"][i]) + "\t" + str(d["F05"][i]) + "\t" + str(d["F06"][i]) + "\t" \
+                      + str(d["F08"][i]) + "\t" + str(d["F09"][i]) + '\n')
 
         result_files.write('\n')
         result_files.flush()
@@ -260,8 +258,7 @@ if __name__ == "__main__":
         result_files.write(
             str(exception_error_result_dict['F01']) + '\t' + str(exception_error_result_dict['F02']) + '\t' + str(
                 exception_error_result_dict['F03']) + \
-            '\t' + str(exception_error_result_dict['F04']) + '\t' + str(
-                exception_error_result_dict['F05']) + '\t' + str(
+            '\t' + str(exception_error_result_dict['F04']) + '\t' + str(exception_error_result_dict['F05']) + '\t' + str(
                 exception_error_result_dict['F06']) + '\t' + str(exception_error_result_dict['F08']) + \
             '\t' + str(exception_error_result_dict['F09']) + '\n')
 
