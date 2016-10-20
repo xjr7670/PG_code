@@ -206,6 +206,7 @@ if __name__ == "__main__":
         result_file.write("Result of %s\n" % eachFile)
         # ***************************************************************************************************************************
         # this code is use to counting past due information
+        
         # the file need to count
         pase_due = Get_past_due_total(eachFile)
 
@@ -226,18 +227,17 @@ if __name__ == "__main__":
             d[each_mrp_c] = d2
 
         # print table head
-        mrp_controller_length = len(mrp_c_list)
         past_due_table_head = '\t\t'
-        for n1 in range(mrp_controller_length):
-            past_due_table_head += mrp_c_list[n1] + '\t'
+        for each_mrp_c in mrp_c_list:
+            past_due_table_head += each_mrp_c + '\t'
         past_due_table_head += '\n'
         result_file.write(past_due_table_head)
 
         # formating output
         for each_element in mrp_element_list:
             res = each_element
-            for n2 in range(mrp_controller_length):
-                res += "\t" + str(d[mrp_c_list[n2]][each_element])
+            for each_mrp_c in mrp_c_list:
+                res += "\t" + str(d[each_mrp_c][each_element])
             res += '\n'
             result_file.write(res)
 
@@ -245,8 +245,8 @@ if __name__ == "__main__":
         result_file.flush()
 
         # ************************************************************************************************************************
-        # line 247-271 is use to counting exception errors information
-        #
+        # this code is use to counting exception errors information
+
         # the file need to count
         exception_errors = Get_exception_errors_total(eachFile)
 
@@ -258,15 +258,15 @@ if __name__ == "__main__":
 
         # print table head
         exception_errors_table_head = ''
-        for n3 in range(mrp_controller_length):
-            exception_errors_table_head += mrp_c_list[n3] + '\t'
+        for each_mrp_c in mrp_c_list:
+            exception_errors_table_head += each_mrp_c + '\t'
         exception_errors_table_head += '\n'
         result_file.write(exception_errors_table_head)
 
         # formating output
         exception_errors_string = ''
-        for n4 in range(mrp_controller_length):
-            exception_errors_string += str(exception_error_result_dict[mrp_c_list[n4]]) + '\t'
+        for each_mrp_c in mrp_c_list:
+            exception_errors_string += str(exception_error_result_dict[each_mrp_c]) + '\t'
         exception_errors_string += '\n'
         result_file.write(exception_errors_string)
 
