@@ -206,7 +206,7 @@ if __name__ == "__main__":
         result_file.write("Result of %s\n" % eachFile)
         # ***************************************************************************************************************************
         # this code is use to counting past due information
-        
+
         # the file need to count
         pase_due = Get_past_due_total(eachFile)
 
