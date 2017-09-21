@@ -77,16 +77,25 @@ class NYK_Track(object):
 
         return result
 
-    def write_to_excel(self, ws, cntr_no, result):
+    def write_to_excel(self, ws, ctn_row, cntr_no, result):
         # write the 6 key point within the result to NYK_Result sheet
-        row = ws.max_row + 1
-        ws.cell(row=row, column=1).value = cntr_no
-        ws.cell(row=row, column=2).value = result[2]['eventDt'].split(' ')[0]
-        ws.cell(row=row, column=3).value = result[4]['eventDt'].split(' ')[0]
-        ws.cell(row=row, column=4).value = result[8]['eventDt'].split(' ')[0]
-        ws.cell(row=row, column=5).value = result[9]['eventDt'].split(' ')[0]
-        ws.cell(row=row, column=6).value = result[13]['eventDt'].split(' ')[0]
-        ws.cell(row=row, column=7).value = result[14]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=2).value = result[2]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=3).value = result[4]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=4).value = result[8]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=5).value = result[9]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=6).value = result[13]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=7).value = result[14]['eventDt'].split(' ')[0]
+
+
+def get_max_row(ws_obj):
+    key = True
+    i = 0
+    while key:
+        i = i + 1
+        value = ws_obj.cell(row=i, column=1).value
+        if value is None:
+            key = False
+            return i - 1
 
 
 if __name__ == "__main__":
@@ -105,27 +114,31 @@ if __name__ == "__main__":
         messagebox.showwarning(title="NotFound", message="The config.cfg file not found in current directory")
     else:
         filename = config_json['filePath']
-        if filename == "":
-            filename = filedialog.askopenfilename(filetypes=("Excel", ["*.xlsx", "*.xls"], initialdir="C:/"))
+
+        # If the filename path is void or file not exists
+        if filename == "" or not os.path.exists(filename):
+            # filename = filedialog.askopenfilename(filetypes=("Excel", ["*.xlsx", "*.xls"]), initialdir="C:/")
+            filename = filedialog.askopenfilename(initialdir="C:/")
             config_json['filePath'] = filename
             with open("config.cfg", "w") as f:
                 f.write(str(config_json))
 
     wb = openpyxl.load_workbook(filename)
-    container_ws = wb.get_sheet_by_name("Container_no")
+    # container_ws = wb.get_sheet_by_name("Container_no")
     nyk_ws = wb.get_sheet_by_name("Tracking_Result")
-    init_max_row = container_ws.max_row
-    container_list = [container_ws.cell(row=r, column=1).value for r in range(2, init_max_row + 1)]
+    # ctn_last_row = get_max_row(container_ws)
+    result_last_row = get_max_row(nyk_ws)
+    container_list = [nyk_ws.cell(row=r, column=1).value for r in range(2, result_last_row + 1)]
 
 
     #*************************************************** Start to crawl ****************************************************#
     nyk_track = NYK_Track()
-    for ctn in container_list:
+    for ctn_row, ctn in enumerate(container_list):
         print("Tracking %s ......" % ctn, end="")
         bkg_no, cop_no = nyk_track.get_bkg_cop_no(ctn, timestamp)
         logistics_result = nyk_track.track_and_record(ctn, bkg_no, cop_no)
         print("Write to excel...", end="")
-        nyk_track.write_to_excel(nyk_ws, ctn, logistics_result)
+        nyk_track.write_to_excel(nyk_ws, ctn_row + 2, ctn, logistics_result)
         print("Done!")
         time.sleep(2)
     else:
