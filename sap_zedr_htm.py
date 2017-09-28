@@ -43,5 +43,5 @@ def get_data(fname, code_list):
 
 koala_code = ["82261753", "82261756", "82261762", "82261951", "82263780", "82264483"]
 tampax_code = ["82255634", "82258740", "82259122", "82258746", "82258747", "82261076"]
-# get_data("ka.htm", koala_code)
-get_data("ta.htm", tampax_code)
+get_data("ka.htm", koala_code)
+# get_data("ta.htm", tampax_code)
