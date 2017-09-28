@@ -135,7 +135,10 @@ if __name__ == "__main__":
     nyk_track = NYK_Track()
     for ctn_row, ctn in enumerate(container_list):
         print("Tracking %s ......" % ctn, end="")
-        bkg_no, cop_no = nyk_track.get_bkg_cop_no(ctn, timestamp)
+        try:
+            bkg_no, cop_no = nyk_track.get_bkg_cop_no(ctn, timestamp)
+        except KeyError:
+            continue
         logistics_result = nyk_track.track_and_record(ctn, bkg_no, cop_no)
         print("Write to excel...", end="")
         nyk_track.write_to_excel(nyk_ws, ctn_row + 2, ctn, logistics_result)
