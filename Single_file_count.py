@@ -126,7 +126,6 @@ if __name__ == "__main__":
     # 配置信息包含路径、mrp_controller列表、mrp_element列表
     if not os.path.exists('config.cfg'):
         print("There is no configuration file *config.cfg* in current folder!")
-        sleep(5)
         os._exit(0)
 
     config_file = open('config.cfg')
@@ -144,7 +143,7 @@ if __name__ == "__main__":
     # 获取工作目录下的所有htm文件名并放到列表中
     error_file = r"C:\Users\xian.jr\Desktop\Job ZCXXP227, Step 1.htm"
 
-    print("Result of %s\n" % error_file)
+    print("Result of %s" % error_file)
     # ***************************************************************************************************************************
     # this code is use to counting past due information
 
@@ -154,7 +153,7 @@ if __name__ == "__main__":
     total = pase_due.get_total()
 
     # f.write('File of ' + eachFile + '\n')
-    print('The total of Past due is: ' + str(total) + '\n')
+    print('The total of Past due is: ' + str(total))
     print('=============================================================================================\n')
 
     d = {}
@@ -179,7 +178,6 @@ if __name__ == "__main__":
         res = each_element
         for each_mrp_c in mrp_c_list:
             res += "\t" + str(d[each_mrp_c][each_element])
-        res += '\n'
         print(res)
 
 
@@ -200,12 +198,10 @@ if __name__ == "__main__":
     exception_errors_table_head = ''
     for each_mrp_c in mrp_c_list:
         exception_errors_table_head += each_mrp_c + '\t'
-    exception_errors_table_head += '\n'
     print(exception_errors_table_head)
 
     # formating output
     exception_errors_string = ''
     for each_mrp_c in mrp_c_list:
         exception_errors_string += str(exception_error_result_dict[each_mrp_c]) + '\t'
-    exception_errors_string += '\n'
     print(exception_errors_string)
