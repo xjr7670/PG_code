@@ -79,12 +79,14 @@ class NYK_Track(object):
 
     def write_to_excel(self, ws, ctn_row, cntr_no, result):
         # write the 6 key point within the result to NYK_Result sheet
+        # 2、4、5、8、9、13、14
         ws.cell(row=ctn_row, column=2).value = result[2]['eventDt'].split(' ')[0]
         ws.cell(row=ctn_row, column=3).value = result[4]['eventDt'].split(' ')[0]
-        ws.cell(row=ctn_row, column=4).value = result[8]['eventDt'].split(' ')[0]
-        ws.cell(row=ctn_row, column=5).value = result[9]['eventDt'].split(' ')[0]
-        ws.cell(row=ctn_row, column=6).value = result[13]['eventDt'].split(' ')[0]
-        ws.cell(row=ctn_row, column=7).value = result[14]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=4).value = result[5]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=5).value = result[8]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=6).value = result[9]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=7).value = result[13]['eventDt'].split(' ')[0]
+        ws.cell(row=ctn_row, column=8).value = result[14]['eventDt'].split(' ')[0]
 
 
 def get_max_row(ws_obj):
@@ -139,6 +141,7 @@ if __name__ == "__main__":
             bkg_no, cop_no = nyk_track.get_bkg_cop_no(ctn, timestamp)
         except KeyError:
             continue
+
         logistics_result = nyk_track.track_and_record(ctn, bkg_no, cop_no)
         print("Write to excel...", end="")
         nyk_track.write_to_excel(nyk_ws, ctn_row + 2, ctn, logistics_result)
