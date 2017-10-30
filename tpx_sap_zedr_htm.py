@@ -1,7 +1,7 @@
 import os
 from lxml import etree
 
-os.chdir(r"C:/users/xian.jr/Documents/SAP/SAP GUI/")
+# os.chdir(r"C:/users/xian.jr/Documents/SAP/SAP GUI/")
 
 def get_data(fname, code_list):
     """接受文件名和Code列表来处理数据"""
@@ -32,6 +32,7 @@ def get_data(fname, code_list):
         result_dict[dc][code]["dc"] = unres_inv + qi_inv + block_inv
         result_dict[dc][code]["intransit"] = intransit_inv
 
+    f = open("result.txt", "w")
     for d in dc_list:
         result_string = str(result_dict[d][code_list[0]]["dc"]) + "," + str(result_dict[d][code_list[0]]["intransit"]) + ","
         result_string += str(result_dict[d][code_list[1]]["dc"]) + "," + str(result_dict[d][code_list[1]]["intransit"]) + ","
@@ -43,9 +44,13 @@ def get_data(fname, code_list):
         result_string += str(result_dict[d][code_list[7]]["dc"]) + "," + str(result_dict[d][code_list[7]]["intransit"]) + ","
         result_string += str(result_dict[d][code_list[8]]["dc"]) + "," + str(result_dict[d][code_list[8]]["intransit"]) + ","
         result_string += str(result_dict[d][code_list[9]]["dc"]) + "," + str(result_dict[d][code_list[9]]["intransit"]) + ","
-        print(result_string)
+        f.write(result_string + "\n")
+    else:
+        f.close()
 
-koala_code = ["82261753", "82261756", "82261762", "82261951", "82263780", "82264483"]
 tampax_code = ["82255634", "82258740", "82259122", "82258746", "82258747", "82261076", "82273315", "82273316", "82277425", "82277427"]
-# get_data("ka.htm", koala_code)
-get_data("ta.htm", tampax_code)
+if not os.path.exists("ta.htm"):
+    print("No ta.htm file!")
+    sleep(3)
+else:
+    get_data("ta.htm", tampax_code)
